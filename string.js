@@ -3,24 +3,32 @@ class String{
         var options = {
             bodyA: bodyA,
             pointB: pointB,
-            stiffness: 0.05,
+            stiffness: 0.06,
             length: 10
         }
         this.pointB = pointB
         this.string = Constraint.create(options);
+        this.string.bodyA = bodyA;
         World.add(world, this.string);
     }
 
-    fly(){
+    fly() {
         this.string.bodyA= null;
     }
 
-    display(){
+    attach(body) {
+        this.string.bodyA = body;
+    }
+
+    display() {
         if(this.string.bodyA){
             var pointA = this.string.bodyA.position;
             var pointB = this.pointB;
+            push();
+            strokeWeight(4);
+            line(pointA.x,pointA.y,pointB.x,pointB.y);
+            pop();
         }
-        line(bodyA.x,bodyA.y,pointB.x,pointB.y);
     }
     
 }

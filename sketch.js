@@ -5,17 +5,26 @@ const Constraint = Matter.Constraint;
 var engine;
 var world;
 
-var ground, platform;
-var blocks0,blocks1,blocks2,blocks3,blocks4,blocks5,blocks6,blocks7,blocks8,blocks9,blocks10,blocks11,blocks12,blocks13,blocks14,blocks15,blocks16;
+var ground, platform, platform2;
+var blocks0,blocks01,blocks02,blocks03,blocks04,blocks05,blocks06,blocks1,blocks2,blocks3,blocks4,blocks5,blocks6,blocks7,blocks8,blocks9,blocks10,blocks11,blocks12,blocks13,blocks14,blocks15,bullet;
 var blockString;
 
 function setup() {
-  var canvas = createCanvas(800,700);
+  var canvas = createCanvas(1200,700);
   engine = Engine.create();
   world = engine.world;
 
-  ground = new Ground(400,690,800,20);
+  ground = new Ground(600,700,1200,20);
+  
   platform = new Ground(490+30,510-50,240,20)
+  platform2 = new Ground(490+460,510-200,120,20)
+
+  blocks01 = new Box(490+430,470-200,30,30);
+  blocks02 = new Box(490+460,470-200,30,30);
+  blocks03 = new Box(490+490,470-200,30,30);
+  blocks04 = new Box(490+445,470-230,30,30);
+  blocks05 = new Box(490+475,470-230,30,30);
+  blocks06 = new Box(490+460,470-250,30,30);
 
   blocks0 = new Box(400+30,500-50,30,30);
   blocks1 = new Box(430+30,500-50,30,30);
@@ -37,9 +46,9 @@ function setup() {
 
   blocks15 = new Box(490+30,410-50,30,30);
 
-  blocks16 = new Box2(200,500,40,40);
+  bullet = new Box2(150,500,40,40);
 
-  blockString = new String(blocks16.body,{x:200, y:500});
+  blockString = new String(bullet.body,{x:150, y:500});
 
 }
 
@@ -64,18 +73,32 @@ function draw() {
   blocks13.display();
   blocks14.display();
   blocks15.display();
+  blocks01.display();
+  blocks02.display();
+  blocks03.display();
+  blocks04.display();
+  blocks05.display();
+  blocks06.display();
 
-  blocks16.display();
+  blockString.display();
+  
   
   ground.display();
   platform.display();
-
+  platform2.display();
+  bullet.display();
 }
 
 function mouseDragged(){
-  Matter.Body.setPosition(blocks16.body, {x: mouseX , y: mouseY});
+  Matter.Body.setPosition(bullet.body, {x: mouseX , y: mouseY});
 }
 
 function mouseReleased(){
-  string.fly();
+  blockString.fly();
+}
+
+function keyPressed(){
+  if(keyCode===32){
+      blockString.attach(bullet.body);
+  }
 }
